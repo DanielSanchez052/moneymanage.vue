@@ -18,6 +18,18 @@ class AuthService{
     logout() {
       localStorage.removeItem('user');
     }
+
+    register(user){
+      return axios.post(settings.identityApi.BaseUrl+settings.identityApi.register, 
+      {
+          userName: user.username,
+          email: user.email,
+          phoneNumber: user.phone,
+					password: user.password,
+      }).then(response => {
+				return true
+			})
+    }
 }
 
 export default new AuthService()

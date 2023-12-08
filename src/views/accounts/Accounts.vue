@@ -40,36 +40,17 @@
 </div>
 </template>
 
-<script>
-import {
-    initFlowbite
-} from "flowbite"
-
+<script setup>
 import LoginForm from "@/components/accounts/LoginForm.vue"
 import RegisterForm from "@/components/accounts/RegisterForm.vue"
+import { initFlowbite } from "flowbite"
+import { onMounted } from "vue"
 
-export default {
-    name: "Accounts",
-    components: {
-        LoginForm,
-        RegisterForm
-    },
-    data() {
+onMounted(() => {
+    initFlowbite()
+  })
 
-        return {
 
-        }
-    },
-    computed: {
-
-    },
-    mounted() {
-        initFlowbite()
-    },
-    methods: {
-
-    }
-}
 </script>
 
 <style scoped>

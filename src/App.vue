@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <SideBar v-if="currentUser"/> 
+  <SideBar v-if="store.user"/> 
 
   <router-view />
   
@@ -8,18 +8,12 @@
 
 
 <script setup>
-  import { initFlowbite } from "flowbite"
-  import { onMounted, computed } from "vue"
+
   import NavBar from "@/components/NavBar.vue"
   import SideBar from "@/components/SideBar.vue"
-  import { useStore } from "vuex"
+  import { UseAuth } from "@/store/auth.module"
+  const store = UseAuth()
 
-  const store = useStore()
 
-  const currentUser = computed(() => store.state.auth.user)
-
-  onMounted(() => {
-    initFlowbite()
-  })
 
 </script>
