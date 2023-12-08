@@ -69,7 +69,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- <SourcesList Sources="SourcesFiltered" RefreshSources=RefreshSources /> -->
         </div>
     </div>
 </section>
