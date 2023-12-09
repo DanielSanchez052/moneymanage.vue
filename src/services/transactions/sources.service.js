@@ -3,12 +3,12 @@ import settings from "../services.config"
 import util from "@/libs/utilities"
 
 class SourcesService{
-    GetSources(acessToken, accountId){
+    GetSources(accessToken, accountId){
       const endpoint = util.formatString(settings.moneyManageApi.get_source, [accountId])
 
       return axios
         .get(settings.moneyManageApi.BaseUrl + endpoint, {
-          headers: { Authorization: "Bearer " + acessToken },
+          headers: { Authorization: "Bearer " + accessToken },
         })
         .then((res) => {
           return { success: true, data: res.data };
@@ -20,6 +20,21 @@ class SourcesService{
           }
           return { success: false, error, data: undefined };
         });
+    }
+
+    CreateSource(accessToken, accountId, source){
+      return axios
+        .post(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.post_source, {
+          accountId: accountId,
+          name: source.name,
+          description: source.description,
+          isActive: source.active
+        },{
+          headers: { Authorization: "Bearer " + accessToken },
+        })
+        .then((res) => {
+          return true
+        })
     }
 }
 

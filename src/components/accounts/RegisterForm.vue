@@ -54,8 +54,7 @@
 <script setup>
 import {
     Form,
-    Field,
-    ErrorMessage
+    Field
 } from "vee-validate"
 import { ref } from "vue" 
 import * as yup from "yup"
