@@ -3,6 +3,7 @@ import Home from "./views/Home.vue"
 import Accounts from "./views/accounts/Accounts.vue"
 import Dashboard from "./views/dashboard/Dashboard.vue" 
 import Sources from "./views/dashboard/Sources.Vue" 
+import Transactions from "./views/dashboard/Transactions.Vue" 
 
 const routes = [
     {
@@ -26,7 +27,13 @@ const routes = [
         name: "sources",
         component: Sources,
         meta: { requiresAuth: true },
-    }
+    },
+    {
+      path: "/dashboard/transactions",
+      name: "transactions",
+      component: Transactions,
+      meta: { requiresAuth: true },
+  }
 ]
 
 
@@ -39,7 +46,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   const loggedIn = localStorage.getItem('user');
-  
+
   if(to.meta.requiresAuth && !loggedIn){
     return {
       path: '/accounts',
@@ -48,6 +55,9 @@ router.beforeEach((to, from) => {
       }
     }
   }
+
+  
+
 });
 
   export default router

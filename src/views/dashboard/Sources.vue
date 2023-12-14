@@ -1,7 +1,7 @@
 <template>
 <section class="p-3 sm:p-5">
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-        <h1 class="py-2 text-center text-white">Sources</h1>
+        <h1 class="py-10 text-center text-white text-2xl">Fuentes</h1>
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
@@ -57,7 +57,6 @@ const sourcesListElement = ref(null)
 function setFilterSources(active){
     sourcesFilter.value = active
 }
-
 
 onMounted(() => {
     initFlowbite()

@@ -1,4 +1,4 @@
-import axios from "axios"
+import httpClient from "@/services/http_client"
 import settings from "../services.config"
 import util from "@/libs/utilities"
 
@@ -6,9 +6,12 @@ class SourcesService{
     GetSources(accessToken, accountId){
       const endpoint = util.formatString(settings.moneyManageApi.get_source, [accountId])
 
-      return axios
+      return httpClient
         .get(settings.moneyManageApi.BaseUrl + endpoint, {
-          headers: { Authorization: "Bearer " + accessToken },
+          headers: { 
+            Authorization: "Bearer " + accessToken
+          },
+          responseType: "json"
         })
         .then((res) => {
           return { success: true, data: res.data };
@@ -23,14 +26,30 @@ class SourcesService{
     }
 
     CreateSource(accessToken, accountId, source){
-      return axios
+      return httpClient
         .post(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.post_source, {
           accountId: accountId,
           name: source.name,
           description: source.description,
           isActive: source.active
         },{
-          headers: { Authorization: "Bearer " + accessToken },
+          headers: { Authorization: "Bearer " + accessToken},
+        })
+        .then((res) => {
+          return true
+        })
+    }
+
+    UpdateSource(accessToken, source){
+      return httpClient
+        .post(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.UpdateSource, {
+          sourceId: source.Id,
+          accountId: source.accountId,
+          name: source.name,
+          description: source.description,
+          isActive: source.active
+        },{
+          headers: { Authorization: "Bearer " + accessToken},
         })
         .then((res) => {
           return true
