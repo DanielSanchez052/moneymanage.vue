@@ -2,7 +2,10 @@
   <NavBar />
   <SideBar v-if="store.user"/> 
 
-  <router-view />
+  <main class="relative overflow-hidden">
+    <FloatingStatus v-if="store.status.loggedIn"/> 
+    <router-view />
+  </main>
   
 </template>
 
@@ -11,9 +14,12 @@
 
   import NavBar from "@/components/NavBar.vue"
   import SideBar from "@/components/SideBar.vue"
+  import FloatingStatus from "@/components/FloatingStatus.vue"
   import { UseAuth } from "@/store/auth.module"
   import { onMounted } from "vue"
+
   const store = UseAuth()
+
 
 
 </script>

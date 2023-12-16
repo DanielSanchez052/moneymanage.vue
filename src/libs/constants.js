@@ -3,7 +3,14 @@ const TRANSACTION_TYPES = {
     spend: 2
 }
 
+const ACCOUNT_STATUS = {
+    Positive: "Positive",
+    Medium: "Medium",
+    Negative: "Negative"
+}
+
 
 export {
-    TRANSACTION_TYPES
+    TRANSACTION_TYPES,
+    ACCOUNT_STATUS
 }

@@ -21,7 +21,9 @@
     </thead>
     <tbody>
         <tr class="border-b dark:border-gray-700" v-for="transaction in data.pagesPlain">
-            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ transaction.ammount }}</th>
+            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ util.formatMoney(transaction.ammount) }}
+            </th>
             <td class="px-4 py-3">
                 {{ formatTransactionDate(transaction.transactionDate) }}
             </td>
@@ -56,9 +58,11 @@
 </template>
 
 <script setup>
-import { ref, toRef, defineProps, toRefs } from "vue"
+import { defineProps, toRefs } from "vue"
 import UseTransactions from "@/custom_hooks/transactions"
-import { TRANSACTION_TYPES } from "@/libs/constants" 
+import { TRANSACTION_TYPES } from "@/libs/constants"
+import util from "@/libs/utilities"
+
 const props = defineProps(["token", "accountId", "filters"])
 
 const filters = toRefs(props.filters)
