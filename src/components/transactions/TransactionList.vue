@@ -46,22 +46,19 @@
 </template>
 
 <script setup>
-import { ref, toRef, defineProps } from "vue"
+import { ref, toRef, defineProps, toRefs } from "vue"
 import UseTransactions from "@/custom_hooks/transactions"
 
-const props = defineProps(["token", "accountId", "sourceId", "typeId", "pageSize"])
+const props = defineProps(["token", "accountId", "filters"])
+
+const filters = toRefs(props.filters)
 
 const token = props.token
 const accountId = props.accountId
 
-const typeId = toRef(props, "typeId")
-const sourceId = toRef(props, "sourceId")
-const pageSize = toRef(props, "pageSize")
-
-
 const {
     isLoading, data, isError, refetch, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage
-} = UseTransactions(token, accountId, pageSize, typeId, sourceId)
+} = UseTransactions(token, accountId, filters)
 
 function refreshTransactions() {
     refetch.value()

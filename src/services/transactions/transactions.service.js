@@ -14,6 +14,8 @@ class TransactionService{
                     SourceId: filter.sourceId,
                     AccountId: filter.accountId,
                     UserId: filter.userId,
+                    TransactionDateFrom: filter.dateFrom,
+                    TransactionDateTo: filter.dateTo,
                     PageIndex: filter.pageIndex,
                     PageSize: filter.pageSize,
                 },

@@ -3,13 +3,11 @@ import {
 } from "vue-query";
 import TransactionService from "@/services/transactions/transactions.service"
 
-export default function UseTransactions(token, accountId, pageSize, type, source) {
+export default function UseTransactions(token, accountId, filters) {
     return useInfiniteQuery(["transactions", {
         token,
         accountId,
-        pageSize,
-        type,
-        source
+        filters
     }], async ({
         pageParam = 1,
         queryKey
@@ -18,23 +16,26 @@ export default function UseTransactions(token, accountId, pageSize, type, source
             const {
                 token,
                 accountId,
-                pageSize,
-                type,
-                source
+                filters
             } = queryKey[1];
 
             const transaction_filter = {
                 pageIndex: pageParam,
-                pageSize: pageSize,
+                pageSize: filters.pageSize,
                 accountId: accountId,
             }
 
-            if (type && type !== 0) {
-                transaction_filter.typeId = type;
+            if (filters.typeId && filters.typeId !== 0) {
+                transaction_filter.typeId = filters.typeId;
             }
 
-            if (source && source !== 0) {
-                transaction_filter.sourceId = source;
+            if (filters.sourceId && filters.sourceId !== 0) {
+                transaction_filter.sourceId = filters.sourceId;
+            }
+
+            if(filters.dateFrom && filters.dateFrom != "" && filters.dateTo && filters.dateTo != ""){
+                transaction_filter.dateFrom = filters.dateFrom
+                transaction_filter.dateTo = filters.dateTo
             }
 
             const data = await TransactionService.GetTransactions(token, {
