@@ -6,6 +6,10 @@ export default {
   },
 
   formatMoney: (value) => {
+    if(value == undefined){
+      value = 0
+    }
+
     return (value).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',

@@ -14,6 +14,7 @@ class AccountService{
           responseType: "json"
         })
         .then((res) => {
+					localStorage.setItem('account', JSON.stringify(res.data));
           return { success: true, data: res.data };
         })
         .catch((error) => {

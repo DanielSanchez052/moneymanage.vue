@@ -46,10 +46,21 @@ import LoginForm from "@/components/accounts/LoginForm.vue"
 import RegisterForm from "@/components/accounts/RegisterForm.vue"
 import { initFlowbite } from "flowbite"
 import { onMounted } from "vue"
+import { UseAuth } from "@/store/auth.module"
+import { useRouter } from "vue-router"
+
+const store = UseAuth()
+const router = useRouter();
+
 
 onMounted(() => {
+    
     initFlowbite()
-  })
+
+    if(store.user){
+        router.push("/dashboard")
+    }
+})
 
 
 </script>

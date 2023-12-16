@@ -61,12 +61,6 @@ const button_disabled = "w-full text-white bg-indigo-600 cursor-not-allowed font
 const error = ref(false)
 const messages = ref([])
 
-onMounted(() => {
-    if(store.user){
-        router.push("/dashboard")
-    }
-})
-
 async function handleLogin(user) {
     messages.value = []
     error.value = false
@@ -75,11 +69,13 @@ async function handleLogin(user) {
         () => {
             let redirect_to = route.query.redirectTo
 
-            if (redirect_to) {
-                router.push(redirect_to);
+            if (!redirect_to) {
+                router.push("/dashboard");
+                return;
             }
 
-            router.push("/dashboard");
+            router.push(redirect_to);
+
         }, (e) => {
             error.value = true
             messages.value.push(...e.map(e => e.message))
