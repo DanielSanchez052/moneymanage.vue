@@ -22,8 +22,18 @@
     <tbody>
         <tr class="border-b dark:border-gray-700" v-for="transaction in data.pagesPlain">
             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ transaction.ammount }}</th>
-            <td class="px-4 py-3">{{ transaction.transactionDate }}</td>
-            <td class="px-4 py-3">{{ transaction.type.name }}</td>
+            <td class="px-4 py-3">
+                {{ formatTransactionDate(transaction.transactionDate) }}
+            </td>
+            <td class="px-4 py-3">
+                <span v-if="TRANSACTION_TYPES.revenue == transaction.type.id" class="bg-primary-100 text-zinc-300 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-600 dark:text-primary-300">
+                    Ganado
+                </span>
+                <span v-else class="bg-primary-100 text-zinc-300 text-xs font-medium px-2 py-0.5 rounded dark:bg-orange-600 dark:text-primary-300">
+                    Gastado
+                </span>
+            
+            </td>
             <td class="px-4 py-3">{{ transaction.source.name }}</td>
             <td class="px-4 py-3">
                 <font-awesome-icon :icon="['fas', 'circle-check']" v-if="transaction.isActive" />
@@ -48,7 +58,7 @@
 <script setup>
 import { ref, toRef, defineProps, toRefs } from "vue"
 import UseTransactions from "@/custom_hooks/transactions"
-
+import { TRANSACTION_TYPES } from "@/libs/constants" 
 const props = defineProps(["token", "accountId", "filters"])
 
 const filters = toRefs(props.filters)
@@ -66,6 +76,15 @@ function refreshTransactions() {
 
 function transactionNextPage() {
     fetchNextPage.value()
+}
+
+function formatTransactionDate(value){
+    let date = new Date(value)
+    return [
+        date.getDate(),
+        date.getMonth() + 1,
+        date.getFullYear()
+    ].join("/")
 }
 
 defineExpose({
