@@ -19,6 +19,7 @@ export const serviceConfig = {
         transaction_types: "api/transaction/types",
         get_source: "api/transaction/sources/{0}",
         post_source: "api/transaction/sources",
+        put_source: "api/transaction/sources"
     }
 }
 

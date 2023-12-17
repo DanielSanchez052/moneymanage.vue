@@ -58,18 +58,22 @@
                 </div>
 
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <button @click="addSourceModal.showModal" id="addSourceModalButton" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                        <font-awesome-icon icon="plus" class="px-1"></font-awesome-icon>
+                    <button @click="addTransactionModal.showModal" id="addTransactionModalButton" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <font-awesome-icon icon="plus"></font-awesome-icon>
                         Agregar Transaccion
                     </button>
                     <div class="flex items-center space-x-3 w-full md:w-auto">
                     </div>
                 </div>
+                
             </div>
-            <TransactionList :token="token" :accountId="accountId" :filters="filters_selected" />
+            
+            <TransactionList :token="token" :accountId="accountId" :filters="filters_selected" ref="transactionListElement" />
         </div>
     </div>
 </section>
+
+<AddTransactionModal ref="addTransactionModal"  @transaction-created="() => transactionListElement.refreshTransactions()"/>
 </template>
 
 <script setup>
@@ -87,13 +91,15 @@ import {
 import TransactionList from "@/components/transactions/TransactionList.vue"
 import RangeDatePicker from "@/components/RangeDatePicker.vue"
 import UseSources from "@/custom_hooks/sources"
+import AddTransactionModal from "@/components/transactions/AddTransactionModal.vue"
+
 
 const authStore = UseAuth()
+const transactionListElement = ref(null)
+const addTransactionModal = ref(null)
 
 const token = authStore.user.token
 const accountId = authStore.user.accountId
-
-const start = ref("")
 
 const filters_selected = reactive({
     sourceId: 0,

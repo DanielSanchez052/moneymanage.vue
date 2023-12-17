@@ -42,8 +42,8 @@ class SourcesService{
 
     UpdateSource(accessToken, source){
       return httpClient
-        .post(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.UpdateSource, {
-          sourceId: source.Id,
+        .put(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.put_source, {
+          sourceId: source.id,
           accountId: source.accountId,
           name: source.name,
           description: source.description,

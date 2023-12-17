@@ -1,6 +1,5 @@
 import httpClient from "@/services/http_client"
 import settings from "../services.config"
-import util from "@/libs/utilities"
 
 class AccountService{
     GetAccountById(accessToken, accountId){

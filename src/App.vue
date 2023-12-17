@@ -11,14 +11,17 @@
 
 
 <script setup>
-
+  import { initFlowbite } from "flowbite"
   import NavBar from "@/components/NavBar.vue"
   import SideBar from "@/components/SideBar.vue"
   import FloatingStatus from "@/components/FloatingStatus.vue"
   import { UseAuth } from "@/store/auth.module"
+  import { onMounted } from "vue"
 
   const store = UseAuth()
 
-
+  onMounted(() => {
+    initFlowbite()
+  })
 
 </script>

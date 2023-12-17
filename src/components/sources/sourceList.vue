@@ -1,4 +1,5 @@
 <template>
+    
 <div class="overflow-x-auto">
     <div v-if="isLoading" class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4 flex flex-1 flex-col justify-center items-center py-20">
         <span class="dark:text-white">Loading...</span>
@@ -27,15 +28,20 @@
                     <font-awesome-icon :icon="['fas', 'circle-xmark']" v-else />
                 </td>
                 <td class="px-4 py-3 flex justify-end">
-                    <button @click="updateSourceModal.showModal" id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                        Editar
+                    <div :id="`tooltip-edit-${source.id}`" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Editar Fuente
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+
+                    <button @click="() => { updateSourceModal.showModal(source) }" :data-tooltip-target="`tooltip-edit-${source.id}`" id="editSourceButton" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                        <font-awesome-icon :icon="['fas', 'pen-to-square']" />
                     </button>
                 </td>
             </tr>
-        </tbody>
+        </tbody> 
     </table>
 </div>
-<UpdateSourceModal ref="updateSourceModal" @source-updated="() => console.log('Updated')"/>
+<UpdateSourceModal ref="updateSourceModal" @source-updated="() => refetch()"/>
 </template>
 
 <script setup>
@@ -51,7 +57,6 @@ const token = authStore.user.token
 const accountId = authStore.user.accountId
 const sourcesFilter = toRef(props, "sourcesFilter")
 const updateSourceModal = ref(0)
-
 
 const {
     data,

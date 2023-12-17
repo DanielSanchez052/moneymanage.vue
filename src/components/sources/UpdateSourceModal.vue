@@ -20,20 +20,26 @@
                 <div class="">
                     <div class="mb-4">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                        <Field type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escribe el nombre de la fuente" />
+                        <Field v-model="formValues.name" type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escribe el nombre de la fuente" />
                         <p name="name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.name }}</p>
                     </div>
                     <div class="mb-4">
                         <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-                        <Field type="text" name="description" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escribe una descripcion" />
+                        <Field  v-model="formValues.description" type="text" name="description" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escribe una descripcion" />
                         <p name="description" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.description }}</p>
 
                     </div>
                     <div class="flex justify-center items-center mb-4">
                         <div class="h-5 items-center">
-                            <Field type="checkbox" :value="true" name="active" id="active" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                            <Field v-model="formValues.active" 
+                                type="checkbox" 
+                                name="active" 
+                                id="active" 
+                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                         </div>
                         <label for="active" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Activa</label>
+                        <p name="active" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.active }}</p>
+
                     </div>
                     <div class="w-full mb-6" v-show="error">
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500" v-for="error in messages">
@@ -65,7 +71,7 @@ import {
     Field
 } from "vee-validate"
 import {
-    ref, onMounted, defineExpose, defineEmits
+    ref, onMounted, defineExpose, defineEmits, reactive
 } from "vue"
 import * as yup from "yup"
 import SourcesService from "@/services/transactions/sources.service"
@@ -78,7 +84,7 @@ const emit = defineEmits(["source-updated"])
 const schema = yup.object().shape({
     name: yup.string().required("en nombre es obligatorio."),
     description: yup.string().required("la descripcion es obligatoria."),
-    active: yup.boolean()
+    active: yup.string()
 });
 
 const updateSourceModalId = ref(null)
@@ -87,6 +93,12 @@ const button_active = "w-full focus:outline-none text-white bg-indigo-600 hover:
 const button_disabled = "w-full text-white bg-indigo-600 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-indigo-600"
 const error = ref(false)
 const messages = ref([])
+const formValues = reactive({
+    id: "",
+    name: "",
+    description: "",
+    active: "on"
+})
 
 onMounted(() => {
     updateSourceModal = new Modal(updateSourceModalId.value) 
@@ -95,7 +107,10 @@ onMounted(() => {
 function handleUpdateSource(source, { resetForm }) {
     messages.value = []
     error.value = false
-    
+
+    source.active = source.active === undefined
+    source.id = formValues.id
+
     SourcesService.UpdateSource(authStore.user.token, {
             accountId: authStore.user.accountId,
             sourceId: "",
@@ -106,14 +121,18 @@ function handleUpdateSource(source, { resetForm }) {
             resetForm()
             hideModal()
         }, (e) => {
+            console.log(e)
             error.value = true
             messages.value.push(...e.map(e => e.message))
         })
-
 }
 
 function showModal(source){
     updateSourceModal.show()
+    formValues.id = source.id
+    formValues.name = source.name
+    formValues.description = source.description
+    formValues.active = source.isActive ? undefined : 'on'
 }
 
 function hideModal(){
