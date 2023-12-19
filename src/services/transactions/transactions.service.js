@@ -32,6 +32,24 @@ class TransactionService{
             });
     }
 
+    async CreateTransaction(accessToken, accountId, transaction){
+        try {
+            const res = await httpClient.post(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.transaction, {
+                accountId: accountId,
+                ammount: transaction.ammount,
+                transactionDate: transaction.transactionDate,
+                type: transaction.typeId,
+                sourceId: transaction.sourceId,
+                transactionExtendedProperties: transaction.ext_prop,
+                },{
+                    headers: { Authorization: "Bearer " + accessToken},
+                })
+            return { success: true, data: res.data, error: undefined }
+        } catch (error) {   
+            return { success: false, data: res, error: error }
+        }
+      }
+
 }
 
 export default new TransactionService()

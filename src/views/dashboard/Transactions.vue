@@ -1,8 +1,8 @@
 <template>
-<section class="sm:p-5 p-2 md:ml-64 h-screen relative">
-    <div class="mx-auto max-w-screen-xl px-2 lg:px-12">
-        <h1 class="py-10 text-center text-white text-2xl">Transacciones </h1>
-        <div class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden">
+<section class="sm:p-5 md:ml-64 h-screen relative">
+    <div class="mx-auto max-w-screen-xl lg:px-12">
+        <h1 class="pt-10 text-center text-white text-2xl">Transacciones </h1>
+        <div class=" bg-white mt-5 dark:bg-gray-800 shadow-md sm:rounded-lg ">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="flex flex-col md:flex-row gap-4 w-full md:w-1/2">
                     <div>
@@ -17,7 +17,7 @@
                                 <a @click.prevent="() => setSource(0)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Todos</a>
                             </div>
                             <div class="py-1">
-                                <a v-for="source in data" @click.prevent="() => setSource(source.id)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ source.name }}</a>
+                                <a v-for="source in sourcesData" @click.prevent="() => setSource(source.id)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ source.name }}</a>
                             </div>
                         </div>
                     </div>
@@ -33,8 +33,13 @@
                                 <a @click.prevent="() => setType(0)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Todos</a>
                             </div>
                             <div class="py-1">
-                                <a @click.prevent="() => setType(1)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Ganado</a>
-                                <a @click.prevent="() => setType(2)" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gastado</a>
+                                <a 
+                                    v-for="types in typesData" 
+                                    @click.prevent="() => setType(types.id)" 
+                                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                    >
+                                    {{ getTypeName(types.id) }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -59,7 +64,7 @@
 
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <button @click="addTransactionModal.showModal" id="addTransactionModalButton" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                        <font-awesome-icon icon="plus"></font-awesome-icon>
+                        <font-awesome-icon icon="plus" class="px-2"></font-awesome-icon>
                         Agregar Transaccion
                     </button>
                     <div class="flex items-center space-x-3 w-full md:w-auto">
@@ -67,13 +72,12 @@
                 </div>
                 
             </div>
-            
             <TransactionList :token="token" :accountId="accountId" :filters="filters_selected" ref="transactionListElement" />
         </div>
     </div>
 </section>
 
-<AddTransactionModal ref="addTransactionModal"  @transaction-created="() => transactionListElement.refreshTransactions()"/>
+<AddTransactionModal ref="addTransactionModal" :sources="sourcesData" :types="typesData"  @transaction-created="() => transactionListElement.refreshTransactions()"/>
 </template>
 
 <script setup>
@@ -81,17 +85,15 @@ import {
     initFlowbite
 } from "flowbite"
 import {
-    onMounted,
-    ref,
-    reactive
+    onMounted, ref, reactive
 } from "vue"
-import {
-    UseAuth
-} from "@/store/auth.module"
+import { UseAuth } from "@/store/auth.module"
 import TransactionList from "@/components/transactions/TransactionList.vue"
 import RangeDatePicker from "@/components/RangeDatePicker.vue"
 import UseSources from "@/custom_hooks/sources"
+import UseTypes from "@/custom_hooks/types"
 import AddTransactionModal from "@/components/transactions/AddTransactionModal.vue"
+import { TRANSACTION_TYPES } from "@/libs/constants"
 
 
 const authStore = UseAuth()
@@ -104,16 +106,13 @@ const accountId = authStore.user.accountId
 const filters_selected = reactive({
     sourceId: 0,
     typeId: 0,
-    pageSize: 10,
+    pageSize: 8,
     dateFrom: "",
     dateTo: "" 
 })
 
-const {
-    data,
-    isLoading,
-    refetch
-} = UseSources(token, accountId, 0)
+const {data: sourcesData  } = UseSources(token, accountId, 0)
+const {data: typesData} = UseTypes(token)
 
 onMounted(() => {
     initFlowbite()
@@ -130,6 +129,21 @@ function setType(typeId) {
 function setRangeDate(e){
     filters_selected.dateFrom = e.start
     filters_selected.dateTo = e.end
+}
+
+function getTypeName(id){
+    let name
+    switch(id){
+        case TRANSACTION_TYPES.revenue:
+            name = "Ganado"
+        break;
+        case TRANSACTION_TYPES.spend:
+            name = "Gastado"
+        break;
+        default:
+            name = "Undefined"
+    }
+    return name
 }
 
 </script>

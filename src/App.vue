@@ -2,7 +2,7 @@
   <NavBar />
   <SideBar v-if="store.user"/> 
 
-  <main class="relative overflow-hidden">
+  <main class="relative overflow-auto">
     <FloatingStatus v-if="store?.status?.loggedIn ?? false"/> 
     <router-view />
   </main>

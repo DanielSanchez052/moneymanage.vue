@@ -31,7 +31,9 @@ export const UseAuth = defineStore('auth', {
     },
     async refreshAccountStatus(){
       try {
+        console.log("actualizando Estado...")
         const data = await AccountService.GetAccountById(this.user.token, this.user.accountId)
+        console.log(data)
         this.account = data
         return data.data
     } catch (error) {

@@ -38,12 +38,14 @@ import {
     defineEmits,
     defineExpose
 } from "vue"
+import DateRangePicker from 'flowbite-datepicker/DateRangePicker';
+
 
 const emit = defineEmits(["change"])
 
 onMounted(() => {
     const dateRangePickerEl = document.getElementById('rangeDatePickerId');
-    new dateRangePicker(dateRangePickerEl, {
+    new DateRangePicker(dateRangePickerEl, {
         autohide: true,
         format: "yyyy/mm/dd"
     });
