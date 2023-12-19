@@ -1,5 +1,5 @@
 import axios from "axios"
-import settings from "../services.config"
+import settings from "@/services/services.config"
 
 class AuthService{
   login(user){

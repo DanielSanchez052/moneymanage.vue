@@ -1,9 +1,9 @@
 import { createWebHistory, createRouter, createMemoryHistory } from "vue-router"
-import Home from "./views/Home.vue"
-import Accounts from "./views/accounts/Accounts.vue"
-import Dashboard from "./views/dashboard/Dashboard.vue" 
-import Sources from "./views/dashboard/Sources.Vue" 
-import Transactions from "./views/dashboard/Transactions.Vue" 
+import Home from "@/views/Home.vue"
+import Accounts from "@/views/accounts/Accounts.vue"
+import Dashboard from "@/views/dashboard/Dashboard.vue" 
+import Sources from "@/views/dashboard/Sources.Vue" 
+import Transactions from "@/views/dashboard/Transactions.Vue" 
 
 const routes = [
     {

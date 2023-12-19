@@ -1,5 +1,5 @@
 import axios from "axios"
-import AuthService from "../services/users/auth.service"
+import AuthService from "@/services/users/auth.service"
 
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 

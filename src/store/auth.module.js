@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import AuthService from "../services/users/auth.service"
+import AuthService from "@/services/users/auth.service"
 import AccountService from "@/services/transactions/account.service"
 
 const user = JSON.parse(localStorage.getItem('user'));
