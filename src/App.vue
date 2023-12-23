@@ -16,12 +16,24 @@
   import SideBar from "@/components/SideBar.vue"
   import FloatingStatus from "@/components/FloatingStatus.vue"
   import { UseAuth } from "@/store/auth.module"
-  import { onMounted } from "vue"
+  import { onMounted, onBeforeUnmount, ref } from "vue"
 
   const store = UseAuth()
+  const timer = ref(0)
+
 
   onMounted(() => {
     initFlowbite()
+
+    timer.value = setInterval(() => {
+      if(store?.status?.loggedIn){
+        const res = store.refreshAccountStatus()
+      }
+    }, 30000)
+  })
+
+  onBeforeUnmount(() => {
+    clearInterval(timer.value)
   })
 
 </script>

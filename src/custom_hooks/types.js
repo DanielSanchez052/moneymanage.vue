@@ -12,8 +12,11 @@ export default function UseTypes(token) {
             } = queryKey[1];
 
             const data = await TypesService.GetTypes(token)
-
-            return data.data
+            if(data.success){
+                return data.data
+            }else{
+                return undefined
+            }
             
         } catch (error) {
             return undefined

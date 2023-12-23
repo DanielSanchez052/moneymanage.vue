@@ -12,15 +12,11 @@ class TypesService{
           responseType: "json"
         })
         .then((res) => {
-          return { success: true, data: res.data };
+          return res
         })
         .catch((error) => {
-          if (error instanceof AxiosError) {
-            let message = error.response?.data;
-            return { success: false, error: message, data: undefined };
-          }
-          return { success: false, error, data: undefined };
-        });
+          console.error(error)
+        })
     }
 }
 

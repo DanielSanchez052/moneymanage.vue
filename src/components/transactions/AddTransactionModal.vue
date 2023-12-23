@@ -180,7 +180,14 @@ const schema = yup.object().shape({
 
 const { handleSubmit, isSubmitting, errors } = useForm({
     initialValues: {
-    ammount: 0
+    ammount: 0,
+    ext_prop: [
+        {
+            displayName: "Motivo",
+            key: "MOTIVO",
+            value: ""
+        }
+    ]
 }, 
 validationSchema: schema
 })
@@ -210,18 +217,19 @@ onMounted(() => {
 const handleAddTransaction = handleSubmit((tansaction, { resetForm }) =>{
     messages.value = []
     error.value = false
-    console.log(tansaction)
     TransactionService.CreateTransaction(authStore.user.token, authStore.user.accountId, tansaction).then(
         (res) => {
-            console.log(res)
+            if(!res.success){
+                error.value = true
+                messages.value.push(...e.map(e => e.errors.message))
+                return;
+            }
             authStore.refreshAccountStatus()
             emit("transaction-created")
             resetForm()
             hideModal()
         }, (e) => {
-            console.log(e)
-            error.value = true
-            messages.value.push(...e.map(e => e.message))
+            console.error(e)
         })
 })
 

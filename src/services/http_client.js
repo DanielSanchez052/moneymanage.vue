@@ -5,13 +5,12 @@ import AuthService from "@/services/users/auth.service"
 
 
 axios.interceptors.response.use((res) => {
-    return res
+    return {success: true, data: res.data, errors: undefined}
 }, (error) => {
-    
-    if(error.code === "ERR_NETWORK"){
-
-        AuthService.logout()
-    }
+    // console.error(error)
+    // if(error.code === "ERR_NETWORK"){
+    //     AuthService.logout()
+    // }
 
     const status = error.response ? error.response.status : null;
 
@@ -19,8 +18,7 @@ axios.interceptors.response.use((res) => {
         //Refresh token
         AuthService.logout()
     }
-
-    return Promise.reject(error)
+    return {success: false, data: undefined, errors: [...error.response.data.errors]}
 })
 
 export default axios

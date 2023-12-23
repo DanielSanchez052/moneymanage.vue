@@ -3,18 +3,18 @@ import settings from "@/services/services.config"
 
 class AuthService{
   login(user){
-      return axios.post(settings.identityApi.BaseUrl+settings.identityApi.login, 
+    
+    return axios.post(settings.identityApi.BaseUrl+settings.identityApi.login, 
       {
-          email: user.email,
-					password: user.password
+        email: user.email,
+        password: user.password
       }).then(response => {
-				if (response.data.token) {
-					localStorage.setItem('user', JSON.stringify(response.data));
-				}
-				return response.data
-			}, error => {
-        console.log(error)
-      })
+        if(response.success && response.data?.token != undefined){
+          localStorage.setItem('user', JSON.stringify(response.data));
+        }
+        
+        return response
+			})
     }
 
     logout() {
@@ -30,7 +30,7 @@ class AuthService{
           phoneNumber: user.phone,
 					password: user.password,
       }).then(response => {
-				return true
+				return response
 			})
     }
 }

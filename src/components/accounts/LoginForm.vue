@@ -12,7 +12,7 @@
             <p name="password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password }}</p>
         </div>
         <div class="w-full mb-6" v-show="error">
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500" v-for="error in messages">
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500 text-center" v-for="error in messages">
                 {{ error }}
             </p>
         </div>
@@ -78,6 +78,7 @@ async function handleLogin(user) {
 
         }, (e) => {
             error.value = true
+            console.log(e)
             messages.value.push(...e.map(e => e.message))
         })
 }

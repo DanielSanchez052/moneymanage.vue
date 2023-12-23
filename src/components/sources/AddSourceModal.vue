@@ -97,14 +97,18 @@ function handleAddSource(source, { resetForm }) {
     error.value = false
     
     SourcesService.CreateSource(authStore.user.token, authStore.user.accountId, source).then(
-        () => {
+        (res) => {
+            if(!res.success){
+                error.value = true
+                messages.value.push(...e.map(e => e.errors.message))
+                return;
+            }
             emit("source-created")
             resetForm()
             hideModal()
         }, (e) => {
-            console.log(e)
-            error.value = true
-            messages.value.push(...e.map(e => e.message))
+            console.error(e)
+            
         })
 
 }

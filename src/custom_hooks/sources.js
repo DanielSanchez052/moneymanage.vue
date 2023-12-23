@@ -14,11 +14,15 @@ export default function UseSources(token, accountId, sourcesFilter) {
 
             const data = await SourcesService.GetSources(token, accountId)
 
-            if(sourcesFilter != 0){
-                return data.data.filter(d => d.isActive == (sourcesFilter == 1))
-                
+            if(data.success){
+                if(sourcesFilter != 0){
+                    return data.data.filter(d => d.isActive == (sourcesFilter == 1))
+                    
+                }else{
+                    return data.data
+                }
             }else{
-                return data.data
+                return undefined
             }
         } catch (error) {
             return undefined

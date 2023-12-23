@@ -21,15 +21,8 @@ class TransactionService{
                 },
             }) 
             .then((res) => {
-                return { success: true, data: res.data };
+                return res;
             })
-            .catch((error) => {
-                if (error instanceof AxiosError) {
-                    let message = error.response?.data;
-                    return { success: false, error: message, data: undefined };
-                }
-                return { success: false, error, data: undefined };
-            });
     }
 
     async CreateTransaction(accessToken, accountId, transaction){
@@ -44,12 +37,24 @@ class TransactionService{
                 },{
                     headers: { Authorization: "Bearer " + accessToken},
                 })
-            return { success: true, data: res.data, error: undefined }
+            return res
         } catch (error) {   
-            return { success: false, data: res, error: error }
+            console.error(error)
         }
-      }
-
+    }
+    async UpdateTransaction(accessToken, transaction){
+        try {
+            const res = await httpClient.put(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.transaction_ammount, {
+                transactionId: transaction.id,
+                ammount: transaction.ammount,
+                },{
+                    headers: { Authorization: "Bearer " + accessToken},
+                })
+            return res
+        } catch (error) {   
+            console.error(error)
+        }
+    }
 }
 
 export default new TransactionService()

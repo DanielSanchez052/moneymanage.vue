@@ -14,30 +14,40 @@ export const UseAuth = defineStore('auth', {
   },
   actions: {
     async login(user) {
+      const service_errors = []
       try{
         const response = await AuthService.login(user)
-        await this.loginSuccess(response)
-        return Promise.resolve(response)
-      }catch(error){
-        const service_errors = []
-        if (error.code == "ECONNREFUSED")
+        if(response.success){
+          await this.loginSuccess(response.data)
+          return Promise.resolve(response)
+        }else if (!response.success && response.errors) {
+          service_errors.push(...response.errors)
+          this.loginFailure()
+        }else{
           service_errors.push("Ha ocurrido algo malo, intentalo de nuevo mas tarde")
-        else if (error.response?.status === 400) {
-          service_errors.push(...error.response.data.errors)
-        }          
+          this.loginFailure()
+        }  
+
+        return Promise.reject(service_errors);
+      }catch(error){
+        service_errors.push("Ha ocurrido algo malo, intentalo de nuevo mas tarde")
         this.loginFailure()
         return Promise.reject(service_errors);
       }
     },
     async refreshAccountStatus(){
       try {
-        console.log("actualizando Estado...")
-        const data = await AccountService.GetAccountById(this.user.token, this.user.accountId)
-        console.log(data)
-        this.account = data
-        return data.data
+        const response = await AccountService.GetAccountById(this.user?.token, this.user?.accountId)
+        
+        if(!response.success){
+          this.account = null  
+          return null
+        }
+
+        this.account = response.data
+        return response.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.account = null  
       return null
     }
@@ -49,18 +59,20 @@ export const UseAuth = defineStore('auth', {
       this.account = null;
     },
     async register(user) {
+      const service_errors = []
       return AuthService.register(user).then(
         user => {
-          return Promise.resolve(user);
-        },
-        error => {
-          const service_errors = []
-          if (error.code == "ECONNREFUSED")
+          if(!response.success && response.errors){
+
+            service_errors.push(...response.errors)
+            return Promise.reject(service_errors);
+          }else if(!response.success && !response.errors){
+            
             service_errors.push("Ha ocurrido algo malo, intentalo de nuevo mas tarde")
-          else if (error.response?.status === 400) {
-            service_errors.push(...error.response.data.errors)
-          }          
-          return Promise.reject(service_errors);
+            return Promise.reject(service_errors);
+          }
+          
+          return Promise.resolve(user);
         }
       );
     },

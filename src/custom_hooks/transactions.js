@@ -41,11 +41,14 @@ export default function UseTransactions(token, accountId, filters) {
             const data = await TransactionService.GetTransactions(token, {
                 ...transaction_filter
             })
-
-            return data.data
+            if(data.success){
+                return data.data
+            }else{
+                return []
+            }
 
         } catch (error) {
-            console.log(error)
+            console.error(error)
             return []
         }
     }, {

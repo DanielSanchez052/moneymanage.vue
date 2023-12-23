@@ -13,16 +13,12 @@ class AccountService{
           responseType: "json"
         })
         .then((res) => {
-					localStorage.setItem('account', JSON.stringify(res.data));
-          return { success: true, data: res.data };
-        })
-        .catch((error) => {
-          if (error instanceof AxiosError) {
-            let message = error.response?.data;
-            return { success: false, error: message, data: undefined };
+          if(res.success){
+            localStorage.setItem('account', JSON.stringify(res.data));
           }
-          return { success: false, error, data: undefined };
-        });
+
+          return res;
+        })
     }
 }
 

@@ -1,6 +1,6 @@
 export const serviceConfig = {
     identityApi: {
-        BaseUrl:"https://dev-moneymanage-identity.originalcoin.online/",
+        BaseUrl:"https://mnw9y2xpf0.execute-api.us-east-1.amazonaws.com/dev/",
         login: "api/security/create-token",
         register:"api/user",
         confim_email_request: "api/user/confirm-email-request",
