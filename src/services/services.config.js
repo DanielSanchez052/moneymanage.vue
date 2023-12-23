@@ -21,6 +21,9 @@ export const serviceConfig = {
         post_source: "api/transaction/sources",
         put_source: "api/transaction/sources",
         get_type: "api/transaction/types",
+        budget: "api/budget",
+        get_budget_by_id: "api/budget/{0}",
+        budget_types: "api/budget/types",
     }
 }
 

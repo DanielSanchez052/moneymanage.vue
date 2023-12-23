@@ -78,7 +78,6 @@ async function handleLogin(user) {
 
         }, (e) => {
             error.value = true
-            console.log(e)
             messages.value.push(...e.map(e => e.message))
         })
 }

@@ -121,7 +121,6 @@ function handleUpdateSource(source, { resetForm }) {
             resetForm()
             hideModal()
         }, (e) => {
-            console.log(e)
             error.value = true
             messages.value.push(...e.map(e => e.message))
         })

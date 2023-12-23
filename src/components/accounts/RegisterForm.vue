@@ -92,7 +92,6 @@ function handleRegister(user) {
         () => {
             success_message.value = "Se ha registrado al usuario correctamente."
         }, (e) => {
-            console.log(e)
             error.value = true
             messages.value.push(...e.map(e => e.message))
         })
