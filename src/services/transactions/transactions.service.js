@@ -1,5 +1,6 @@
 import httpClient from "@/services/http_client"
 import settings from "@/services/services.config"
+import util from "@/libs/utilities"
 
 class TransactionService{
     async GetTransactions(accessToken, filter){
@@ -52,6 +53,23 @@ class TransactionService{
                 })
             return res
         } catch (error) {   
+            console.error(error)
+        }
+    }
+
+    async DeleteTransaction(accessToken, id){
+        try{
+            const endpoint = util.formatString(settings.moneyManageApi.delete_transaction, [id])
+            
+            const res = await httpClient.delete(settings.moneyManageApi.BaseUrl + endpoint, {
+                headers: { 
+                    Authorization: "Bearer " + accessToken
+                },
+                responseType: "json"
+            })
+            
+            return res
+        }catch(error){
             console.error(error)
         }
     }

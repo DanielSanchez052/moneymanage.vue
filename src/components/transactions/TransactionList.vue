@@ -42,15 +42,14 @@
                 <font-awesome-icon :icon="['fas', 'circle-xmark']" v-else />
             </td>
             <td class="px-4 py-3 flex justify-end">
-                <button id="apple-imac-27-dropdown-button" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                    <button @click="moreInfoModal.showModal(transaction.transactionExtendedProperties)" id="moreInfoButton" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                <button @click="moreInfoModal.showModal(transaction.transactionExtendedProperties)" id="moreInfoButton" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                         <font-awesome-icon :icon="['fas', 'eye']" />
-                    </button>
                 </button>
-                <button @click="updateTransactionModal.showModal(transaction)" id="apple-imac-27-dropdown-button" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                    <button id="editSourceButton" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                        <font-awesome-icon :icon="['fas', 'pen-to-square']" />
-                    </button>
+                <button @click="updateTransactionModal.showModal(transaction)" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                    <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+                </button>
+                <button @click="transactionDelete(transaction.id)" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                    <font-awesome-icon :icon="['fas', 'trash']" />
                 </button>
             </td>
         </tr>
@@ -68,6 +67,7 @@
 
 <script setup>
 import { defineProps, toRefs, ref } from "vue"
+import TransactionService from "@/services/transactions/transactions.service"
 import UseTransactions from "@/custom_hooks/transactions"
 import { TRANSACTION_TYPES } from "@/libs/constants"
 import util from "@/libs/utilities"
@@ -92,6 +92,19 @@ function refreshTransactions() {
 
 function transactionNextPage() {
     fetchNextPage.value()
+}
+
+function transactionDelete(id){
+    console.log(id)
+    TransactionService.DeleteTransaction(token, id).then(
+        (res) => {
+            console.log(res)
+            refreshTransactions()
+            console.log("Deleted...")
+        }, (e) => {
+            console.error(e)
+        }
+    )
 }
 
 function formatTransactionDate(value){

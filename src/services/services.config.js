@@ -15,6 +15,7 @@ export const serviceConfig = {
         balance_account: "api/account/{0}/balance",
         account_status: "api/account/status",
         transaction: "api/transaction",
+        delete_transaction: "api/transaction/{0}",
         transaction_ammount: "api/transaction/ammount",
         transaction_types: "api/transaction/types",
         get_source: "api/transaction/sources/{0}",
