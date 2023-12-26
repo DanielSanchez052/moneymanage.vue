@@ -202,7 +202,7 @@ const sources = toRef(props, "sources")
 const types = toRef(props, "types")
 
 const { remove, push, fields } = useFieldArray('ext_prop');
-const { errorMessage, handleBlur, handleChange, meta, setValue } = useField("transactionDate")
+const { errorMessage, handleBlur, handleChange, meta, setValue } =useField ("transactionDate")
 
 onMounted(() => {
     addTransactionModal = new Modal(addTransactionModalId.value)

@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter, createMemoryHistory } from "vue-router"
 import Home from "@/views/Home.vue"
 import Accounts from "@/views/accounts/Accounts.vue"
+import ConfirmEmail from "@/views/accounts/confirm-email/ConfirmEmail.vue"
 import Dashboard from "@/views/dashboard/Dashboard.vue" 
 import Sources from "@/views/dashboard/Sources.vue" 
 import Transactions from "@/views/dashboard/Transactions.vue" 
@@ -15,6 +16,11 @@ const routes = [
         path: "/accounts",
         name: "accounts",
         component: Accounts
+    },
+    {
+      path: "/accounts/confirm-email",
+      name: "confirm-email",
+      component: ConfirmEmail
     },
     {
         path: "/dashboard",

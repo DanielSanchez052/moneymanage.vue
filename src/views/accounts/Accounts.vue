@@ -25,15 +25,15 @@
         </div>
 
         <p class="mt-10 text-center text-sm text-gray-500">
-            Your Email is not confirmed?
+            Tu email aún no ha sido confirmado?
             <a href="/accounts/confirm-email" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Confirm your email here
+                confirmalo aquí
             </a>
         </p>
         <p class="mt-10 text-center text-sm text-gray-500">
-            Forgot password?
+            Olvidaste tu contraseña?
             <a href="/accounts/reset-password" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                reset password
+                Resetea tu contraseña
             </a>
         </p>
     </div>

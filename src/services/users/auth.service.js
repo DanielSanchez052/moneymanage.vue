@@ -33,6 +33,15 @@ class AuthService{
 				return response
 			})
     }
+
+    confirmEmailRequest(confirmationRequest){
+      return axios.post(settings.identityApi.BaseUrl+settings.identityApi.confim_email_request, 
+        {
+          email: confirmationRequest.email
+        }).then(response => {
+          return response
+        })
+    }
 }
 
 export default new AuthService()
