@@ -26,15 +26,15 @@
 
         <p class="mt-10 text-center text-sm text-gray-500">
             Tu email aún no ha sido confirmado?
-            <a href="/accounts/confirm-email" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <router-link to="/accounts/confirm-email" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 confirmalo aquí
-            </a>
+            </router-link>
         </p>
         <p class="mt-10 text-center text-sm text-gray-500">
             Olvidaste tu contraseña?
-            <a href="/accounts/reset-password" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <router-link to="/accounts/reset-password" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 Resetea tu contraseña
-            </a>
+            </router-link>
         </p>
     </div>
 </div>
