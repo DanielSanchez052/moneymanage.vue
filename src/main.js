@@ -1,19 +1,27 @@
-import { createApp } from 'vue'
+import { createSSRApp  } from 'vue'
 import './style.css'
-import router from "./router"
+import { createRouter } from "./router"
 import { FontAwesomeIcon } from './plugins/font-awesome'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from "vue-query";
-import Datepicker from 'flowbite-datepicker/Datepicker';
 
-window.datePicker = Datepicker;
+const createApp = () => {
+    const app = createSSRApp(App)
+    const pinia = createPinia()
+    app.use(pinia)
+    const router = createRouter()
+    app.use(router)
+    app.use(VueQueryPlugin)
+    app.component("font-awesome-icon", FontAwesomeIcon)
 
-const store = createPinia()
+    
+    return {
+        app,
+        router
+    } 
+}
 
-createApp(App)
-.use(router)
-.use(store)
-.use(VueQueryPlugin)
-.component("font-awesome-icon", FontAwesomeIcon)
-.mount("#app")
+export {
+    createApp
+}
