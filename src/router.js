@@ -1,43 +1,37 @@
 import { createWebHistory, createRouter, createMemoryHistory } from "vue-router"
-import Home from "@/views/Home.vue"
-import Accounts from "@/views/accounts/Accounts.vue"
-import ConfirmEmail from "@/views/accounts/confirm-email/ConfirmEmail.vue"
-import Dashboard from "@/views/dashboard/Dashboard.vue" 
-import Sources from "@/views/dashboard/Sources.vue" 
-import Transactions from "@/views/dashboard/Transactions.vue" 
 
 const routes = [
     {
         path: "/",
         name: "home",
-        component: Home 
+        component: () => import("@/views/Home.vue") 
     },
     {
         path: "/accounts",
         name: "accounts",
-        component: Accounts
+        component: () => import("@/views/accounts/Accounts.vue")
     },
     {
       path: "/accounts/confirm-email",
       name: "confirm-email",
-      component: ConfirmEmail
+      component: () => import("@/views/accounts/confirm-email/ConfirmEmail.vue") 
     },
     {
         path: "/dashboard",
         name: "dashboard",
-        component: Dashboard,
+        component: () => import("@/views/dashboard/Dashboard.vue" ),
         meta: { requiresAuth: true },
     },
     {
         path: "/dashboard/sources",
         name: "sources",
-        component: Sources,
+        component: () => import("@/views/dashboard/Sources.vue"),
         meta: { requiresAuth: true },
     },
     {
       path: "/dashboard/transactions",
       name: "transactions",
-      component: Transactions,
+      component: () => import("@/views/dashboard/Transactions.vue"),
       meta: { requiresAuth: true },
   }
 ]
