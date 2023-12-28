@@ -1,19 +1,45 @@
-import { createApp } from 'vue'
+import { createSSRApp  } from 'vue'
 import './style.css'
-import router from "./router"
+import { createRouter } from "./router"
 import { FontAwesomeIcon } from './plugins/font-awesome'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from "vue-query";
-import Datepicker from 'flowbite-datepicker/Datepicker';
+import moment from 'moment';
 
-window.datePicker = Datepicker;
+const createApp = () => {
+    const app = createSSRApp(App)
+    const pinia = createPinia()
+    app.use(pinia)
+    const router = createRouter()
+    app.use(router)
+    app.use(VueQueryPlugin)
+    app.component("font-awesome-icon", FontAwesomeIcon)
 
-const store = createPinia()
+    router.beforeEach((to, from) => {
+        let loggedIn;
 
-createApp(App)
-.use(router)
-.use(store)
-.use(VueQueryPlugin)
-.component("font-awesome-icon", FontAwesomeIcon)
-.mount("#app")
+        if(typeof localStorage !== 'undefined'){
+          const user = JSON.parse(localStorage.getItem("user")) 
+          loggedIn = user && moment(user.expiration) > moment()
+        }
+
+        if(to.meta.requiresAuth && !loggedIn){
+          return {
+            path: '/accounts',
+            query: {
+              redirectTo: to.fullPath
+            }
+          }
+        }
+      });
+    
+    return {
+        app,
+        router
+    } 
+}
+
+export {
+    createApp
+}

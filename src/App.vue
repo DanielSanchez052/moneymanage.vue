@@ -1,12 +1,10 @@
 <template>
   <NavBar />
   <SideBar v-if="store.user"/> 
-
   <main class="relative overflow-auto">
     <FloatingStatus v-if="store?.status?.loggedIn ?? false"/> 
     <router-view />
-  </main>
-  
+  </main> 
 </template>
 
 
@@ -21,10 +19,9 @@
   const store = UseAuth()
   const timer = ref(0)
 
-
   onMounted(() => {
     initFlowbite()
-
+    
     timer.value = setInterval(() => {
       if(store?.status?.loggedIn){
         const res = store.refreshAccountStatus()

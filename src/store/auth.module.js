@@ -2,8 +2,9 @@ import { defineStore } from "pinia"
 import AuthService from "@/services/users/auth.service"
 import AccountService from "@/services/transactions/account.service"
 
-const user = JSON.parse(localStorage.getItem('user'));
-const account = JSON.parse(localStorage.getItem('account'));
+const user = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : undefined 
+const account = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('account')) : undefined 
+
 const initialState = user
     ? { status: { loggedIn: true }, user, account }
     : { status: { loggedIn: false }, user: null, account: null };

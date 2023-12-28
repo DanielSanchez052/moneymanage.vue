@@ -154,6 +154,8 @@ import * as yup from "yup"
 import { UseAuth } from "@/store/auth.module"
 import TransactionService from "@/services/transactions/transactions.service"
 import { TRANSACTION_TYPES } from "@/libs/constants"
+import Datepicker from 'flowbite-datepicker/Datepicker';
+
 
 const authStore = UseAuth()
 
@@ -206,8 +208,9 @@ const { errorMessage, handleBlur, handleChange, meta, setValue } =useField ("tra
 
 onMounted(() => {
     addTransactionModal = new Modal(addTransactionModalId.value)
+
     const datePickerEl = document.getElementById('transactionDate');
-    new datePicker(datePickerEl, {
+    new Datepicker(datePickerEl, {
         autohide: true,
         buttons: true,
         format: "yyyy/mm/dd"

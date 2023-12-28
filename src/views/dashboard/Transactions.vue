@@ -100,8 +100,8 @@ const authStore = UseAuth()
 const transactionListElement = ref(null)
 const addTransactionModal = ref(null)
 
-const token = authStore.user.token
-const accountId = authStore.user.accountId
+const token = authStore?.user?.token
+const accountId = authStore?.user?.accountId
 
 const filters_selected = reactive({
     sourceId: 0,

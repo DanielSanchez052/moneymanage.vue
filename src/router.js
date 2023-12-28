@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter, createMemoryHistory } from "vue-router"
+import { createWebHistory, createRouter as _createRouter, createMemoryHistory } from "vue-router"
 
 const routes = [
     {
@@ -36,28 +36,14 @@ const routes = [
   }
 ]
 
-const routerHistory = createWebHistory(import.meta.env.BASE_URL) 
+export const createRouter = () =>
+  _createRouter({
+    history: import.meta.env.SSR
+      ? createMemoryHistory(import.meta.env.BASE_URL)
+      : createWebHistory(import.meta.env.BASE_URL),
+    routes,
+  });
 
-const router = createRouter({
-  history: routerHistory,
-  routes
-})
 
-router.beforeEach((to, from) => {
-  const loggedIn = localStorage.getItem('user');
 
-  if(to.meta.requiresAuth && !loggedIn){
-    return {
-      path: '/accounts',
-      query: {
-        redirectTo: to.fullPath
-      }
-    }
-  }
-
-  
-
-});
-
-  export default router
 
