@@ -156,6 +156,7 @@ import TransactionService from "@/services/transactions/transactions.service"
 import { TRANSACTION_TYPES } from "@/libs/constants"
 import Datepicker from 'flowbite-datepicker/Datepicker';
 
+
 const authStore = UseAuth()
 
 const emit = defineEmits(["transaction-created"])
@@ -207,6 +208,7 @@ const { errorMessage, handleBlur, handleChange, meta, setValue } =useField ("tra
 
 onMounted(() => {
     addTransactionModal = new Modal(addTransactionModalId.value)
+
     const datePickerEl = document.getElementById('transactionDate');
     new Datepicker(datePickerEl, {
         autohide: true,

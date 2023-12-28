@@ -5,12 +5,11 @@ import {
   faCircleCheck,
   faCircleXmark,
   faPenToSquare,
-  faMinusCircle,
+  faMinus,
   faEye,
   faTrash
-  // fas
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinusCircle, faEye, faTrash );
+library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinus, faEye, faTrash );
 
 export { FontAwesomeIcon };

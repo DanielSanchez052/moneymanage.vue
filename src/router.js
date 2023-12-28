@@ -46,15 +46,4 @@ export const createRouter = () =>
 
 
 
-// router.beforeEach((to, from) => {
-//   const loggedIn = localStorage.getItem('user');
 
-//   if(to.meta.requiresAuth && !loggedIn){
-//     return {
-//       path: '/accounts',
-//       query: {
-//         redirectTo: to.fullPath
-//       }
-//     }
-//   }
-// });

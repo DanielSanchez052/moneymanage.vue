@@ -68,8 +68,6 @@ const handleConfirmEmail = handleSubmit((confirmationRequest, { resetForm }) => 
     error.value = false
     AuthService.confirmEmailRequest(confirmationRequest).then(
         (res) => {
-            console.log(res)
-
             console.log("Confirmation send...")
             resetForm()
         }, (e) => {

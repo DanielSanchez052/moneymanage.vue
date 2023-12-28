@@ -95,7 +95,6 @@ function transactionNextPage() {
 }
 
 function transactionDelete(id){
-    console.log(id)
     TransactionService.DeleteTransaction(token, id).then(
         (res) => {
             refreshTransactions()

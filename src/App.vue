@@ -1,11 +1,10 @@
 <template>
-  <h1>Hola</h1>
   <NavBar />
   <SideBar v-if="store.user"/> 
   <main class="relative overflow-auto">
     <FloatingStatus v-if="store?.status?.loggedIn ?? false"/> 
     <router-view />
-  </main>
+  </main> 
 </template>
 
 
