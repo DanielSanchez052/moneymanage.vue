@@ -15,10 +15,13 @@
   import FloatingStatus from "@/components/FloatingStatus.vue"
   import { UseAuth } from "@/store/auth.module"
   import { onMounted, onBeforeUnmount, ref } from "vue"
+  import 'vue3-toastify/dist/index.css';
+
+
 
   const store = UseAuth()
   const timer = ref(0)
-
+  
   onMounted(() => {
     initFlowbite()
     
@@ -27,6 +30,7 @@
         const res = store.refreshAccountStatus()
       }
     }, 30000)
+
   })
 
   onBeforeUnmount(() => {

@@ -41,6 +41,7 @@ import { useForm } from "vee-validate"
 import { ref, onMounted } from "vue"
 import AuthService from "@/services/users/auth.service"
 import * as yup from "yup"
+import { toast } from 'vue3-toastify';
 
 const button_active = "w-full focus:outline-none text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-900"
 const button_disabled = "w-full text-white bg-indigo-600 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-indigo-600"
@@ -68,13 +69,28 @@ const handleConfirmEmail = handleSubmit((confirmationRequest, { resetForm }) => 
     error.value = false
     AuthService.confirmEmailRequest(confirmationRequest).then(
         (res) => {
-            console.log("Confirmation send...")
+            if(!res.success){
+                error.value = true
+                messages.value.push(...res.errors.map(e => e.message))
+                toast("Ha ocurrido un error trantando de enciar el email de confirmacion", {
+                    theme: "dark",
+                    type: "error",
+                    autoClose: 1000,
+                }); // ToastOptions
+            
+                return;
+            }
+            
+            toast("Se te ha enviado un email para realizar la confirmacion", {
+                theme: "dark",
+                type: "success",
+                autoClose: 1000,
+            }); // ToastOptions
             resetForm()
         }, (e) => {
             console.error(e)
         }
     )
-    console.log("Confirmar..")
 })
 
 </script>
