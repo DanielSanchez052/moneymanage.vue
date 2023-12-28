@@ -15,7 +15,7 @@ const createApp = () => {
     app.use(router)
     app.use(VueQueryPlugin)
     app.component("font-awesome-icon", FontAwesomeIcon)
-
+    
     router.beforeEach((to, from) => {
         let loggedIn;
 
