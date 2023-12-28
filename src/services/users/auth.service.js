@@ -42,6 +42,25 @@ class AuthService{
           return response
         })
     }
+    
+    resetPasswordRequest(resetPasswordRequest){
+      return axios.post(settings.identityApi.BaseUrl+settings.identityApi.reset_password_request, 
+        {
+          email: resetPasswordRequest.email
+        }).then(response => {
+          return response
+        })
+    }
+    resetPassword(resetPasswordRequest){
+      return axios.put(settings.identityApi.BaseUrl+settings.identityApi.reset_password, 
+        {
+          email: resetPasswordRequest.email,
+          password: resetPasswordRequest.password,
+          resetPasswordToken: resetPasswordRequest.token
+        }).then(response => {
+          return response
+        })
+    }
 }
 
 export default new AuthService()

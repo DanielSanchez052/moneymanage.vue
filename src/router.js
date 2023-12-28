@@ -17,6 +17,26 @@ const routes = [
       component: () => import("@/views/accounts/confirm-email/ConfirmEmail.vue") 
     },
     {
+      path: "/accounts/confirm-email/confirmed",
+      name: "confirmed-email",
+      component: () => import("@/views/accounts/confirm-email/ConfirmedEmail.vue") 
+    },
+    {
+      path: "/accounts/confirm-email/not-confirmed",
+      name: "not-confirm-email",
+      component: () => import("@/views/accounts/confirm-email/NotConfirmedEmail.vue") 
+    },
+    {
+      path: "/accounts/reset-password",
+      name: "reset-password",
+      component: () => import("@/views/accounts/reset-password/ResetPasswordRequest.vue") 
+    },
+    {
+      path: "/accounts/reset-password/change-password",
+      name: "change-password",
+      component: () => import("@/views/accounts/reset-password/change-password/ChangePassword.vue") 
+    },
+    {
         path: "/dashboard",
         name: "dashboard",
         component: () => import("@/views/dashboard/Dashboard.vue" ),
