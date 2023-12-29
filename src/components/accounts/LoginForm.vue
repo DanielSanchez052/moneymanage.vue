@@ -65,7 +65,7 @@ async function handleLogin(user) {
     messages.value = []
     error.value = false
 
-    store.login(user).then(
+    return store.login(user).then(
         () => {
             let redirect_to = route.query.redirectTo
 

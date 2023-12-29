@@ -1,9 +1,7 @@
 <template>
 <div ref="addSourceModalId" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-        <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Agregar Fuente
@@ -15,7 +13,6 @@
                     <span class="sr-only">Cerrar</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <Form @submit="handleAddSource" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
                 <div class="">
                     <div class="mb-4">
@@ -96,7 +93,7 @@ function handleAddSource(source, { resetForm }) {
     messages.value = []
     error.value = false
     
-    SourcesService.CreateSource(authStore.user.token, authStore.user.accountId, source).then(
+    return SourcesService.CreateSource(authStore.user.token, authStore.user.accountId, source).then(
         (res) => {
             if(!res.success){
                 error.value = true
