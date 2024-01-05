@@ -1,9 +1,10 @@
 <template>
     <section class="sm:p-5 md:ml-64 h-screen relative">
         <div class="mx-auto max-w-screen-xl lg:px-12">
-            <h1 class="pt-10 text-center text-white text-2xl">Presupuestos </h1>
+            <h1 class="pt-10 text-center text-white text-2xl" v-if="pageSection == 'list'">Presupuestos</h1>
+            <h1 class="pt-10 text-center text-white text-2xl" v-else>Detalle Presupuesto</h1>
             <div class=" bg-white mt-5 dark:bg-gray-800 shadow-md sm:rounded-lg ">
-                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4" v-if="pageSection == 'list'">
                     <div class="flex flex-col md:flex-row gap-4 w-full md:w-1/2">
                         <div>
                             <button id="sourcesDropdownButton" data-dropdown-toggle="sourcesDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
@@ -55,7 +56,19 @@
                     </div>
                     
                 </div>
-                <BudgetList :token="token" :accountId="accountId" :filters="filters_selected" ref="budgetListElement" />
+
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4" v-else>
+                    <div class="flex flex-col md:flex-row gap-4 w-full md:w-1/2">
+                        <div>
+                            <button @click="setPageSection('list')" id="sourcesDropdownButton" data-dropdown-toggle="sourcesDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                <font-awesome-icon icon="arrow-left" class="px-2"></font-awesome-icon>
+                                Volver
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+                <BudgetList :token="token" :accountId="accountId" :filters="filters_selected" :section="pageSection" :setSection="setPageSection" ref="budgetListElement" />
             </div>
         </div>
     </section>
@@ -78,7 +91,8 @@
     const authStore = UseAuth()
     const budgetListElement = ref(null)
     const addTransactionModal = ref(null)
-    
+    const pageSection = ref("list")
+
     const token = authStore?.user?.token
     const accountId = authStore?.user?.accountId
     
@@ -105,6 +119,10 @@
         filters_selected.typeId = typeId
     }
     
+    function setPageSection(section = "detail"){
+        pageSection.value = section
+    }
+
     function getTypeName(id){
         let name
         switch(id){
