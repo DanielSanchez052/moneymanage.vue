@@ -72,6 +72,7 @@
             </div>
         </div>
     </section>
+    {{ sourcesData }}
 </template>
     
     <script setup>
@@ -100,8 +101,6 @@
         sourceId: 0,
         typeId: 0,
         pageSize: 8,
-        dateFrom: "",
-        dateTo: "" 
     })
     
     const {data: sourcesData  } = UseSources(token, accountId, 0)

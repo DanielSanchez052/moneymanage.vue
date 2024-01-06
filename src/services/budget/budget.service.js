@@ -5,6 +5,7 @@ import util from "@/libs/utilities"
 
 class BudgetService{
     async getBudgets(accessToken, filter){
+        console.log(filter)
         return httpClient.get(settings.moneyManageApi.BaseUrl + settings.moneyManageApi.budget, {
             headers: { 
                 Authorization: "Bearer " + accessToken
@@ -13,7 +14,7 @@ class BudgetService{
             params: {
                 AccountId: filter.accountId,
                 TargetSourceId: filter.targetSourceId,
-                TypeId: filter.targetTypeId,
+                TargetTypeId: filter.targetTypeId,
                 PageIndex: filter.pageIndex,
                 PageSize: filter.pageSize,
             },

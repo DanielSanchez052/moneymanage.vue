@@ -24,11 +24,11 @@ export default function UseBudgets(token, accountId, filters) {
             }
 
             if (filters.typeId && filters.typeId !== 0) {
-                budget_filter.TypeId = filters.typeId;
+                budget_filter.targetTypeId = filters.typeId;
             }
 
             if (filters.sourceId && filters.sourceId !== 0) {
-                budget_filter.TargetSourceId = filters.sourceId;
+                budget_filter.targetSourceId = filters.sourceId;
             }
 
             const data = await BudgetService.getBudgets(token, {
