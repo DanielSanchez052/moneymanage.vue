@@ -3,6 +3,13 @@ const TRANSACTION_TYPES = {
     spend: 2
 }
 
+const BUDGET_TYPES = {
+    daily: 1,
+    monthly: 2,
+    yearly: 3
+}
+
+
 const ACCOUNT_STATUS = {
     Positive: "Positive",
     Medium: "Medium",
@@ -12,5 +19,6 @@ const ACCOUNT_STATUS = {
 
 export {
     TRANSACTION_TYPES,
-    ACCOUNT_STATUS
+    ACCOUNT_STATUS,
+    BUDGET_TYPES
 }

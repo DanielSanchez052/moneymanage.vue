@@ -88,7 +88,7 @@ function handleRegister(user) {
     messages.value = []
     error.value = false
     
-    store.register(user).then(
+    return store.register(user).then(
         () => {
             success_message.value = "Se ha registrado al usuario correctamente."
         }, (e) => {

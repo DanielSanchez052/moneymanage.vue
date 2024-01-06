@@ -53,7 +53,13 @@ const routes = [
       name: "transactions",
       component: () => import("@/views/dashboard/Transactions.vue"),
       meta: { requiresAuth: true },
-  }
+    },
+    {
+      path: "/dashboard/budgets",
+      name: "budgets",
+      component: () => import("@/views/dashboard/Budget.vue"),
+      meta: { requiresAuth: true },
+    }
 ]
 
 export const createRouter = () =>

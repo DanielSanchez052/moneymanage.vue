@@ -7,9 +7,14 @@ import {
   faPenToSquare,
   faMinus,
   faEye,
-  faTrash
+  faTrash,
+  faArrowLeft,
+  faFolderOpen,
+  faShareNodes,
+  faWallet,
+  faSackXmark
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinus, faEye, faTrash );
+library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinus, faEye, faTrash, faArrowLeft, faFolderOpen, faShareNodes, faWallet, faSackXmark);
 
 export { FontAwesomeIcon };
