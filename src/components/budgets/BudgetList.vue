@@ -82,7 +82,7 @@ const {
     isLoading, data, isError, refetch, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage
 } = UseBudgets(token, accountId, filters)
 
-function refreshTransactions() {
+function refreshBudgets() {
     refetch.value()
 }
 
@@ -116,7 +116,7 @@ function getBudgetType(id){
 }
 
 defineExpose({
-    refreshTransactions,
+    refreshBudgets,
     transactionNextPage
 })
 </script>

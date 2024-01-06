@@ -47,7 +47,7 @@
                     </div>
     
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button @click="addTransactionModal.showModal" id="addTransactionModalButton" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <button @click="addbudgetModal.showModal" id="addTransactionModalButton" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                             <font-awesome-icon icon="plus" class="px-2"></font-awesome-icon>
                             Agregar Presupuesto
                         </button>
@@ -72,7 +72,8 @@
             </div>
         </div>
     </section>
-    {{ sourcesData }}
+
+    <AddBudgetModal  :sources="sourcesData" :types="typesData" :budgetType="budgetTypeData"  @budget-created="() => budgetListElement.refreshBudgets()"  ref="addbudgetModal"/>
 </template>
     
     <script setup>
@@ -83,15 +84,17 @@
         onMounted, ref, reactive
     } from "vue"
     import { UseAuth } from "@/store/auth.module"
+    import AddBudgetModal from "@/components/budgets/AddBudgetModal.vue"
     import BudgetList from "@/components/budgets/BudgetList.vue"
     import UseSources from "@/custom_hooks/sources"
     import UseTypes from "@/custom_hooks/types"
-    import { TRANSACTION_TYPES } from "@/libs/constants"
+    import UseBudgetTypes from "@/custom_hooks/budget-types"
+    import { TRANSACTION_TYPES, BUDGET_TYPES } from "@/libs/constants"
     
     
     const authStore = UseAuth()
     const budgetListElement = ref(null)
-    const addTransactionModal = ref(null)
+    const addbudgetModal = ref(null)
     const pageSection = ref("list")
 
     const token = authStore?.user?.token
@@ -105,7 +108,9 @@
     
     const {data: sourcesData  } = UseSources(token, accountId, 0)
     const {data: typesData} = UseTypes(token)
+    const {data: budgetTypeData} = UseBudgetTypes(token)
     
+
     onMounted(() => {
         initFlowbite()
     })
@@ -136,6 +141,5 @@
         }
         return name
     }
-    
     </script>
     
