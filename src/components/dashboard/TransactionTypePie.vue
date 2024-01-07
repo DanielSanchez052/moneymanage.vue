@@ -23,7 +23,7 @@ const options = reactive({
 
     const getData = () => {
         const types = typesData?.value ?? []
-        const transactions = transactionData?.value.pagesPlain ?? []
+        const transactions = transactionData?.value?.pagesPlain ?? []
         const ammountSpend = transactions?.filter(t => t.type.id == TRANSACTION_TYPES.spend).reduce((n, {ammount}) => n + ammount, 0)
         const ammountRevenue = transactions.filter(t => t.type.id == TRANSACTION_TYPES.revenue).reduce((n, {ammount}) => n + ammount, 0)
 

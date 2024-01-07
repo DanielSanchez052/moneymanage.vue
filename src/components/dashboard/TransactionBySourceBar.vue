@@ -23,19 +23,19 @@
     })
 
     const getData = () => {
-    const sources = sourcesData?.value ?? []
-    const transactions = transactionData?.value ?? []
+        const sources = sourcesData?.value ?? []
+        const transactions = transactionData?.value ?? []
 
-    return {
-        labels: [
-            props.label
-        ],
-        datasets: sources.map(s => ({
-                label: s.name,
-                backgroundColor: util.getRandomColor(),
-                data: [transactions?.filter(t => t.source.id == s.id).reduce((n, {ammount}) => n + ammount, 0)] 
-            }))
+        return {
+            labels: [
+                props.label
+            ],
+            datasets: sources.map(s => ({
+                    label: s.name,
+                    backgroundColor: util.getRandomColor(),
+                    data: [transactions?.filter(t => t.source.id == s.id).reduce((n, {ammount}) => n + ammount, 0)] 
+                }))
+        }
     }
-}
 
 </script>

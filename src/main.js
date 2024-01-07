@@ -19,24 +19,6 @@ const createApp = () => {
     app.component("font-awesome-icon", FontAwesomeIcon)
 
     moment.locale("es")
-
-    router.beforeEach((to, from) => {
-        let loggedIn;
-
-        if(typeof localStorage !== 'undefined'){
-          const user = JSON.parse(localStorage.getItem("user")) 
-          loggedIn = user && moment(user.expiration) > moment()
-        }
-
-        if(to.meta.requiresAuth && !loggedIn){
-          return {
-            path: '/accounts',
-            query: {
-              redirectTo: to.fullPath
-            }
-          }
-        }
-      });
     
     return {
         app,
