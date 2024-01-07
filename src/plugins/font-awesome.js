@@ -12,9 +12,11 @@ import {
   faFolderOpen,
   faShareNodes,
   faWallet,
-  faSackXmark
+  faSackXmark,
+  faArrowsRotate,
+  faBroom
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinus, faEye, faTrash, faArrowLeft, faFolderOpen, faShareNodes, faWallet, faSackXmark);
+library.add(faPlus, faCircleCheck, faCircleXmark, faPenToSquare, faMinus, faEye, faTrash, faArrowLeft, faFolderOpen, faShareNodes, faWallet, faSackXmark, faArrowsRotate, faBroom);
 
 export { FontAwesomeIcon };

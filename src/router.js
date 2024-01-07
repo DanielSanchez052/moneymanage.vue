@@ -62,14 +62,34 @@ const routes = [
     }
 ]
 
-export const createRouter = () =>
-  _createRouter({
+export const createRouter = () =>{
+  const router = _createRouter({
     history: import.meta.env.SSR
       ? createMemoryHistory(import.meta.env.BASE_URL)
       : createWebHistory(import.meta.env.BASE_URL),
     routes,
   });
 
+
+  router.beforeEach((to, from) => {
+    const loggedIn = typeof localStorage !== 'undefined' ? localStorage.getItem('user') : undefined 
+
+    if(to.meta.requiresAuth && !loggedIn){
+      return {
+        path: '/accounts',
+        query: {
+          redirectTo: to.fullPath
+        }
+      }
+    }
+  
+    
+  
+  });
+
+  return router
+
+}
 
 
 
