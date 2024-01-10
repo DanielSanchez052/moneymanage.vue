@@ -1,17 +1,17 @@
 <template>
-<section class="sm:p-5  md:ml-64 h-screen relative">
+<section class="pt-5 md:ml-64 h-screen relative">
     <div class="mx-auto max-w-screen-xl px-2 lg:px-12 w-full">
         <h1 class="pt-10 pb-5 text-center text-white text-2xl">Resumen </h1>
         <nav class="bg-white border-b border-gray-200 px-4 py-2.5 mb-4 dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex justify-between">
-                <div class="flex justify-center items-center">
-                    <div class="">
-                        <button @click="cleanFilters" class="px-4 text-sm py-2.5 bg-indigo-600 hover:bg-indigo-400">
+            <div class="flex justify-between items-center flex-col gap-2 md:flex-row">
+                <div class="flex justify-center items-center flex-col gap-2 md:flex-row">
+                    <div class="w-full md:w-20">
+                        <button @click="cleanFilters" class="px-4 text-sm py-2.5 bg-indigo-600 w-full md:w-12 hover:bg-indigo-400">
                             <font-awesome-icon class="text-white text-lg hover:text-gray-400" :icon="['fas','broom']"  />
                         </button>
                     </div>
-                    <div class="px-4">
-                        <p class="text-white text-lg">Filtros:</p>
+                    <div>
+                        <p class="text-white text-md">Filtros:</p>
                     </div>
                     <div class="px-4">                    
                         <RangeDatePicker @change="setRangeDate" ref="rangeDatePicker"/>
@@ -21,24 +21,24 @@
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <p class="text-white text-sm">Total transacciones: {{ numberTransactions }}</p>
+                    <p class="text-white text-xs">Transacciones: {{ numberTransactions }}</p>
                 </div>
             </div>
         </nav>        
-        <section class="grid grid-cols-3 grid-rows-3 gap-4 mb-4">
-            <div >
+        <section class="grid grid-cols-1 grid-rows-5 md:grid-rows-3 md:grid-cols-3 gap-4 mb-4">
+            <div class="row-start-1">
                 <TransactionBySourceBar label="Ganado X Fuente" :sources="sourcesData" :trasactions="transactionData?.pagesPlain?.filter(t => t.type.id == TRANSACTION_TYPES.revenue) ?? []" />
             </div>
-            <div >
+            <div class="row-start-2">
                 <TransactionBySourceBar label="Gastado X Fuente" :sources="sourcesData" :trasactions="transactionData?.pagesPlain?.filter(t => t.type.id == TRANSACTION_TYPES.spend) ?? []" />
             </div>
-            <div class="col-start-3 row-start-1">
+            <div class="col-start-1 row-start-3 md:row-start-1 md:col-start-3">
                 <TransactionTypePie :types="typesData" :trasactions="transactionData ?? []"  />
             </div>
-            <div class="col-start-1 row-start-2 col-span-3">
+            <div class="col-start-1 row-start-4 md:row-start-2 md:col-span-3">
                 <TransactionsMonthlyLine :transactions="transactionData?.pagesPlain"/>
             </div>
-            <div class="col-start-1 row-start-3 col-span-3">
+            <div class="col-start-1 row-start-5 md:row-start-3 md:col-span-3">
                 <TransactionsDailyLine :transactions="transactionData?.pagesPlain"/>
             </div>
         </section>
