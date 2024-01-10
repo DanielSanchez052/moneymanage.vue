@@ -1,6 +1,6 @@
 <template>
-<section class="pt-5 md:ml-64 h-screen relative">
-    <div class="mx-auto max-w-screen-xl lg:px-12">
+<section class="pt-5 md:ml-64 h-screen w-screen overflow-hidden relative">
+    <div class="mx-auto lg:px-12">
         <h1 class="pt-10 text-center text-white text-2xl">Transacciones </h1>
         <div class=" bg-white mt-5 dark:bg-gray-800 shadow-md sm:rounded-lg ">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
