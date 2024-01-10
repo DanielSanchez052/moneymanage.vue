@@ -68,7 +68,7 @@ onMounted(() => {
 const handleResetPassword = handleSubmit((resetPasswordRequest, { resetForm }) => {
     messages.value = []
     error.value = false
-    AuthService.resetPasswordRequest(resetPasswordRequest).then(
+    return AuthService.resetPasswordRequest(resetPasswordRequest).then(
         (res) => {
             if(!res.success){
                 error.value = true

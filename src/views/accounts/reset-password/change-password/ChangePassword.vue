@@ -100,7 +100,7 @@
         resetPasswordRequest.email = route?.query?.Email
         resetPasswordRequest.token = route?.query?.Token
 
-        AuthService.resetPassword(resetPasswordRequest).then(
+        return AuthService.resetPassword(resetPasswordRequest).then(
             (res) => {
                 if(!res.success){
                     toast("No se ha podido restarurar tu contraseña", {
