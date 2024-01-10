@@ -62,8 +62,6 @@ onMounted(() => {
     }
 })
 
-//TODO: make restore password 
-//TODO: fix email link
 
 </script>
 
