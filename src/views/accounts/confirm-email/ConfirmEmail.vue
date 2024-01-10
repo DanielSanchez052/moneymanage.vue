@@ -67,7 +67,7 @@ onMounted(() => {
 const handleConfirmEmail = handleSubmit((confirmationRequest, { resetForm }) => {
     messages.value = []
     error.value = false
-    AuthService.confirmEmailRequest(confirmationRequest).then(
+    return AuthService.confirmEmailRequest(confirmationRequest).then(
         (res) => {
             if(!res.success){
                 error.value = true
