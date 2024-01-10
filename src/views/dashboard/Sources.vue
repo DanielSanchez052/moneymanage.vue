@@ -1,5 +1,5 @@
 <template>
-<section class="pt-5 md:ml-64 h-screen relative">
+<section class="pt-6 md:ml-64 h-screen relative">
     <div class="mx-auto max-w-screen-xl px-2 lg:px-12 w-full">
         <h1 class="py-10 text-center text-white text-2xl">Fuentes</h1>
         <div class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden">
