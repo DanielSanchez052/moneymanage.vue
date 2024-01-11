@@ -1,5 +1,5 @@
 <template>
-<section class="pt-6 md:ml-64 h-screen relative">
+<section class="pt-6 md:ml-64 h-screen relative overflow-auto no-scrollbar">
     <div class="mx-auto max-w-screen-xl px-2 lg:px-12 w-full">
         <h1 class="pt-10 pb-5 text-center text-white text-2xl">Resumen </h1>
         <nav class="bg-white border-b border-gray-200 px-4 py-2.5 mb-4 dark:bg-gray-800 dark:border-gray-700">

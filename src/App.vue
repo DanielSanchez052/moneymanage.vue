@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <SideBar v-if="store.user"/> 
-  <main class="relative overflow-auto">
+  <main class="relative overflow-auto no-scrollbar">
     <FloatingStatus v-if="store?.status?.loggedIn ?? false"/> 
     <router-view />
   </main> 
