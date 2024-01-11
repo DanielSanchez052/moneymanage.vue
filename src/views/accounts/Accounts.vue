@@ -22,6 +22,9 @@
             <div class="hidden p-4" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <RegisterForm />
             </div>
+            <p class="text-center text-xs text-red-500">
+                Sitio en construcción. No ingresar datos financieros reales. Solo con fines educativos.  
+            </p>
         </div>
 
         <p class="mt-10 text-center text-sm text-gray-500">

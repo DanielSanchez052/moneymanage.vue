@@ -1,5 +1,5 @@
 <template>
-<section class="pt-6 md:ml-64 h-screen w-screen overflow-hidden relative">
+<section class="pt-6 md:ml-64 h-screen relative">
     <div class="mx-auto lg:px-12">
         <h1 class="pt-10 text-center text-white text-2xl">Transacciones </h1>
         <div class=" bg-white mt-5 dark:bg-gray-800 shadow-md sm:rounded-lg ">
