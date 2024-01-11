@@ -1,7 +1,83 @@
-# Vue 3 + Vite
+<div align="center">
+<img src="public/img/MoneyManageLogo.png" height="50px" width="auto" /> 
+<h3>
+ The Money Manage App
+</h3>
+<p>Created for didactic and educational purposes.</p>
+</div>
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<div align="center">
+    <a href="#" target="_blank">
+        Preview
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-getting-started">
+        Getting Started
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-commands">
+        Commands
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-license">
+        License
+    </a>
+</div>
 
-## Recommended IDE Setup
+<p></p>
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<div align="center">
+
+<!-- github state -->
+
+</div>
+
+## 🛠️ Stack
+
+- [**Vue**](https://vuejs.org/) -
+- [**javasscript**]() -
+- [**Tailwindcss**](https://tailwindcss.com/) -
+- [**Vite**](https://vitejs.dev/) -
+- [**Font-awesome Icons**](https://fontawesome.com/icons) -
+- [**Flowbite**](https://flowbite.com/) -
+
+## 🚀 Getting Started
+
+1. [Fork](https://github.com/DanielSanchez052/moneymanage.vue/fork) or clone this repository.
+
+```bash
+git clone https://github.com/DanielSanchez052/moneymanage.vue.git
+```
+
+2. Install the dependencies:
+
+- We use [npm](https://www.npmjs.com/) to install and manage the dependencies.
+
+```bash
+# Install with npm:
+npm install
+```
+
+3. Run the development server:
+
+```bash
+# Run with npm:
+npm run dev
+
+```
+
+4. Open [**http://localhost:4321**](http://localhost:4321/) with your browser to see the result 🚀
+
+## 🧞 Commands
+
+|     | Command   | Action                                        |
+| :-- | :-------- | :-------------------------------------------- |
+| ⚙️  | `dev`     | Starts local dev server at `localhost:3000`.  |
+| ⚙️  | `build`   | Build your production site to `./dist/`.      |
+| ⚙️  | `preview` | Preview your build locally, before deploying. |
+
+## 🔑 License
+
+[MIT](#) - Created by [**DanielSanchez052**]().
+
+## ✅ Por hacer...
