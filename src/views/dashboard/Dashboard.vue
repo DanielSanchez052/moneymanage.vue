@@ -29,7 +29,7 @@
             <div class="row-start-1">
                 <TransactionBySourceBar label="Ganado X Fuente" :sources="sourcesData" :trasactions="transactionData?.pagesPlain?.filter(t => t.type.id == TRANSACTION_TYPES.revenue) ?? []" />
             </div>
-            <div class="row-start-2">
+            <div class="row-start-2 md:row-start-1 ">
                 <TransactionBySourceBar label="Gastado X Fuente" :sources="sourcesData" :trasactions="transactionData?.pagesPlain?.filter(t => t.type.id == TRANSACTION_TYPES.spend) ?? []" />
             </div>
             <div class="col-start-1 row-start-3 md:row-start-1 md:col-start-3">
