@@ -183,7 +183,6 @@
                     messages.value.push(...e.map(e => e.errors.message))
                     return;
                 }
-                authStore.refreshAccountStatus()
                 emit("budget-created")
                 resetForm()
                 hideModal()

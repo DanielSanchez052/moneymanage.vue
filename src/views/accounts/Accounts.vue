@@ -51,18 +51,22 @@ import { initFlowbite } from "flowbite"
 import { onMounted } from "vue"
 import { UseAuth } from "@/store/auth.module"
 import { useRouter } from "vue-router"
+import { UseNotificationHub } from "@/store/notification_hub.module"
+
 
 const store = UseAuth()
+const notificationHub = UseNotificationHub()
 const router = useRouter();
 
 
 onMounted(() => {
-    
     initFlowbite()
-
+    
     if(store.user){
         router.push("/dashboard")
     }
+    
+    notificationHub.stopSignalR()
 })
 
 

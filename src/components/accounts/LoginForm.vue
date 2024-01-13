@@ -35,18 +35,17 @@ import {
     Field
 } from "vee-validate"
 import * as yup from "yup"
-import {
-    ref, onMounted
-} from "vue"
+import { ref } from "vue"
 import {
     useRouter,
     useRoute
 } from "vue-router"
-import { 
-    UseAuth
-} from "@/store/auth.module"
+import { UseAuth } from "@/store/auth.module"
+import { UseNotificationHub } from "@/store/notification_hub.module"
+import util from "@/libs/utilities"
 
 const store = UseAuth()
+const notificationHub = UseNotificationHub()
 const router = useRouter();
 const route = useRoute();
 
@@ -67,6 +66,13 @@ async function handleLogin(user) {
 
     return store.login(user).then(
         () => {
+            notificationHub.startSignalR(store?.user?.token)
+
+            notificationHub.signalOn("accountBalanced", (message) => {
+                const messageParsed = JSON.parse(message)
+                store.refreshAccountStatus(util.objectKeysToCamellCase(messageParsed.Data))
+            })
+            
             let redirect_to = route.query.redirectTo
 
             if (!redirect_to) {

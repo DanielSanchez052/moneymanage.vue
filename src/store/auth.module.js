@@ -36,6 +36,9 @@ export const UseAuth = defineStore('auth', {
         return Promise.reject(service_errors);
       }
     },
+    async refreshAccountStatus(account){
+      this.account = account
+    },
     async refreshAccountStatus(){
       try {
         const response = await AccountService.GetAccountById(this.user?.token, this.user?.accountId)
@@ -47,11 +50,11 @@ export const UseAuth = defineStore('auth', {
 
         this.account = response.data
         return response.data
-    } catch (error) {
-      console.error(error)
-      this.account = null  
-      return null
-    }
+      } catch (error) {
+        console.error(error)
+        this.account = null  
+        return null
+      }
     },
     async logout() {
       AuthService.logout();

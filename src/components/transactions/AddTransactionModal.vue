@@ -224,7 +224,6 @@ const handleAddTransaction = handleSubmit((tansaction, { resetForm }) =>{
                 messages.value.push(...e.map(e => e.errors.message))
                 return;
             }
-            authStore.refreshAccountStatus()
             emit("transaction-created")
             resetForm()
             hideModal()
