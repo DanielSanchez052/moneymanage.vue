@@ -17,7 +17,6 @@ export const UseNotificationHub = defineStore('notification-hub', {
     },
     actions: {
         async startSignalR(jwtToken){
-            console.log("...Starting")
             this.connection = this.createConnection({
                 url: settings.moneyManageApi.signalRHubUrl,
                 token: jwtToken
@@ -38,19 +37,15 @@ export const UseNotificationHub = defineStore('notification-hub', {
             // connection.invoke
             this.connection.onclose(() => {
                 this.connectionStarted = false
-                start()
+                // start()
             })
         
             start()
-
-            console.log(this.connection)
         },
 
         async stopSignalR(){
             await this.connection.stop()
-             
             this.connection = null
-            this.connectionStarted = false
         },
 
         createConnection(config){

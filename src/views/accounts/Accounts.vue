@@ -65,8 +65,9 @@ onMounted(() => {
     if(store.user){
         router.push("/dashboard")
     }
-    
-    notificationHub.stopSignalR()
+    if(notificationHub.connectionStarted){
+        notificationHub.stopSignalR()
+    }
 })
 
 

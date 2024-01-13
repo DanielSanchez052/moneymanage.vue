@@ -71,7 +71,7 @@ onMounted(() => {
 
 
   async function logOut() {
-    notificationHub.stopSignalR()
+    await notificationHub.stopSignalR()
     await store.logout()
     router.push('/accounts');
   }

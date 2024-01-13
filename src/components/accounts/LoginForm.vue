@@ -68,9 +68,13 @@ async function handleLogin(user) {
         () => {
             notificationHub.startSignalR(store?.user?.token)
 
-            notificationHub.signalOn("accountBalanced", (message) => {
-                const messageParsed = JSON.parse(message)
-                store.refreshAccountStatus(util.objectKeysToCamellCase(messageParsed.Data))
+            notificationHub.signalOn("accountBalanced", async (message) => {
+                try {
+                    const messageParsed = JSON.parse(message)
+                    await store.refreshAccountStatus(util.objectKeysToCamellCase(messageParsed.Data))    
+                } catch (error) {
+                    await store.refreshAccountStatus()
+                }
             })
             
             let redirect_to = route.query.redirectTo
