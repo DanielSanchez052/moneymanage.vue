@@ -12,7 +12,8 @@ export const serviceConfig = {
     },
     moneyManageApi: {
         BaseUrl: "https://dev-moneymanage.originalcoin.online/",
-        // BaseUrl: "http://localhost:5076/",
+        // BaseUrl: "https://localhost:5078/",
+        signalRHubUrl: "wss://dev-moneymanage.originalcoin.online/notifications-hub",
         account: "api/account",
         balance_account: "api/account/{0}/balance",
         account_status: "api/account/status",

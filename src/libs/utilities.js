@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default {
   formatString: function(value, listValues) {
     return value.replace(/{([0-9])}/g, (match, index) =>
@@ -24,5 +26,10 @@ export default {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+  },
+
+  objectKeysToCamellCase: (obj) => {
+    return _.mapKeys(obj, (v, k) => _.camelCase(k))
+    
   }
 }

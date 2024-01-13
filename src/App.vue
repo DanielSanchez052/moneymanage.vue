@@ -16,27 +16,15 @@
   import SideBar from "@/components/SideBar.vue"
   import FloatingStatus from "@/components/FloatingStatus.vue"
   import { UseAuth } from "@/store/auth.module"
-  import { onMounted, onBeforeUnmount, ref } from "vue"
+  import { onMounted } from "vue"
   import 'vue3-toastify/dist/index.css';
-
-
+  import { UseNotificationHub } from "@/store/notification_hub.module"
+  import util from "@/libs/utilities"
 
   const store = UseAuth()
-  const timer = ref(0)
-  
+  const notificationHub = UseNotificationHub()
+
   onMounted(() => {
     initFlowbite()
-    
-    timer.value = setInterval(() => {
-      if(store?.status?.loggedIn){
-        const res = store.refreshAccountStatus()
-      }
-    }, 30000)
-
   })
-
-  onBeforeUnmount(() => {
-    clearInterval(timer.value)
-  })
-
 </script>

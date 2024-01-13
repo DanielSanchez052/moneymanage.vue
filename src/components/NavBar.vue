@@ -58,16 +58,21 @@ import { UseAuth } from "@/store/auth.module"
 import { useRouter } from "vue-router"
 import { initFlowbite } from "flowbite"
 import { onMounted } from "vue"
+import { UseNotificationHub } from "@/store/notification_hub.module"
 
 onMounted(() => {
     initFlowbite()
   })
 
   const store = UseAuth()
+  const notificationHub = UseNotificationHub()
   const router = useRouter()
 
-  function logOut() {
-    store.logout()
+
+
+  async function logOut() {
+    await notificationHub.stopSignalR()
+    await store.logout()
     router.push('/accounts');
   }
 
