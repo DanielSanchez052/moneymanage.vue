@@ -16,7 +16,7 @@ export const UseNotificationHub = defineStore('notification-hub', {
         }
     },
     actions: {
-        async startSignalR(jwtToken){
+        async startSignalR(jwtToken) {
             this.connection = this.createConnection({
                 url: settings.moneyManageApi.signalRHubUrl,
                 token: jwtToken
@@ -33,38 +33,43 @@ export const UseNotificationHub = defineStore('notification-hub', {
                         setTimeout(start, 5000);
                     })
             }
-            
+
             // connection.invoke
             this.connection.onclose(() => {
                 this.connectionStarted = false
                 // start()
             })
-        
+
             start()
         },
 
-        async stopSignalR(){
-            await this.connection.stop()
-            this.connection = null
+        async stopSignalR() {
+            try {
+                await this.connection.stop()
+            } catch (err) {
+                console.err(err)
+            } finally {
+                this.connection = null
+            }
         },
 
-        createConnection(config){
+        createConnection(config) {
             return new HubConnectionBuilder()
-            .withUrl(config.url, {
-                accessTokenFactory: () => config.token,
-                skipNegotiation: true,
-                transport: HttpTransportType.WebSockets,
-                withCredentials: true
-            })
-            .configureLogging(LogLevel.Information)
-            .build()
+                .withUrl(config.url, {
+                    accessTokenFactory: () => config.token,
+                    skipNegotiation: true,
+                    transport: HttpTransportType.WebSockets,
+                    withCredentials: true
+                })
+                .configureLogging(LogLevel.Information)
+                .build()
         },
-        
-        signalOn(methodName, newMethod = () => {}) {
+
+        signalOn(methodName, newMethod = () => { }) {
             // tryOnScopeDispose(() => {
             //     this.connection.off(methodName)
             // })
-            
+
             return this.connection.on(methodName, (...arg) => {
                 newMethod(...arg);
             });
