@@ -47,7 +47,7 @@ export const UseNotificationHub = defineStore('notification-hub', {
             try {
                 await this.connection.stop()
             } catch (err) {
-                console.err(err)
+                console.error(err)
             } finally {
                 this.connection = null
             }
